@@ -8,6 +8,7 @@ import logging
 import time
 import re
 from datetime import datetime, timedelta
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # New: import the new modules for each pipeline phase
 from query_generation import generate_query
@@ -26,7 +27,7 @@ EMAIL = os.getenv('EMAIL')
 
 # All configurations moved to streamlit_app.py
 SEARCH_PARAMS = {
-    'max_articles': 25,
+    'max_articles': 5,
     'min_articles': 1,
     'max_queries': 3,
     'max_retries': 2,
@@ -263,6 +264,86 @@ def display_synthesis_and_references(synthesis_text, articles):
         st.error("Error displaying synthesis and references. Please try again.")
         st.markdown(synthesis_text)
 
+# Configure logging to file only for worker threads
+worker_logger = logging.getLogger('worker')
+worker_logger.setLevel(logging.INFO)
+worker_handler = logging.FileHandler('worker.log')
+worker_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+worker_logger.addHandler(worker_handler)
+
+# Configure OpenAI client logging to file only
+openai_logger = logging.getLogger('openai')
+openai_logger.setLevel(logging.INFO)
+# Remove all existing handlers
+for handler in openai_logger.handlers[:]:
+    openai_logger.removeHandler(handler)
+openai_handler = logging.FileHandler('openai.log')
+openai_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+openai_logger.addHandler(openai_handler)
+# Prevent OpenAI logs from propagating to root logger
+openai_logger.propagate = False
+
+# Configure worker logger to not propagate to root
+worker_logger.propagate = False
+
+def process_article(article, question, llm_configs):
+    """Process a single article"""
+    try:
+        # Extract the article abstract
+        abstract_obj = article.get('MedlineCitation', {}).get('Article', {}).get('Abstract', {}).get('AbstractText', [])
+        if isinstance(abstract_obj, list):
+            abstract_text = " ".join(abstract_obj)
+        else:
+            abstract_text = abstract_obj
+            
+        if not abstract_text.strip():
+            pmid = article.get('MedlineCitation', {}).get('PMID', 'Unknown')
+            worker_logger.error(f"No abstract for PMID: {pmid}")
+            return None, f"Article with PMID: {pmid} (no abstract)"
+        
+        # Perform relevance check
+        is_relevant = check_relevance(question, abstract_text, llm_configs["relevance_check"])
+        
+        if not is_relevant:
+            pmid = article.get('MedlineCitation', {}).get('PMID', 'Unknown')
+            return None, f"Article with PMID: {pmid} (not relevant)"
+        
+        # Summarize the article
+        summary = summarize_article(question, abstract_text, llm_configs["summarization"])
+        pmid = article.get('MedlineCitation', {}).get('PMID', 'Unknown')
+        summary_with_pmid = f"Article PMID:{pmid}\n{summary}"
+        
+        return summary_with_pmid, None
+        
+    except Exception as e:
+        pmid = article.get('MedlineCitation', {}).get('PMID', 'Unknown')
+        worker_logger.error(f"Error processing article PMID {pmid}: {str(e)}")
+        return None, f"Article with PMID: {pmid} (processing error)"
+
+def process_articles(articles, question, llm_configs, num_workers=8):
+    """Process all articles in parallel"""
+    summaries = []
+    irrelevant = []
+
+    with ThreadPoolExecutor(max_workers=num_workers) as executor:
+        futures = [
+            executor.submit(process_article, article, question, llm_configs)
+            for article in articles
+        ]
+        
+        for future in as_completed(futures):
+            try:
+                summary, error = future.result()
+                if summary:
+                    summaries.append(summary)
+                if error:
+                    irrelevant.append(error)
+            except Exception as e:
+                logger.error(f"Error processing article batch: {str(e)}")
+                time.sleep(20)  # Wait if we hit rate limits
+      
+    return summaries, irrelevant
+
 def main():
     st.title("🏥 CC Medical Research Assistant")
     st.write("Ask a medical research question and get answers based on PubMed articles.")
@@ -306,45 +387,9 @@ def main():
             irrelevant_articles = []
             # Process each retrieved article
             with st.spinner("📚 Processing articles..."):
-                for article in search_results:
-                    try:
-                        # Extract the article abstract
-                        abstract_obj = article.get('MedlineCitation', {}).get('Article', {}).get('Abstract', {}).get('AbstractText', [])
-                        if isinstance(abstract_obj, list):
-                            abstract_text = " ".join(abstract_obj)
-                        else:
-                            abstract_text = abstract_obj
-                    except Exception as e:
-                        abstract_text = ""
-                    
-                    if not abstract_text.strip():
-                        pmid = article.get('MedlineCitation', {}).get('PMID', 'Unknown')
-                        irrelevant_articles.append(f"Article with PMID: {pmid} (no abstract)")
-                        continue
-
-                    # Perform relevance check
-                    try:
-                        is_relevant = check_relevance(question, abstract_text, LLM_CONFIGS["relevance_check"])
-                    except Exception as e:
-                        logger.error(f"Error in relevance check: {str(e)}")
-                        is_relevant = False
-
-                    if not is_relevant:
-                        pmid = article.get('MedlineCitation', {}).get('PMID', 'Unknown')
-                        irrelevant_articles.append(f"Article with PMID: {pmid}")
-                        continue
-
-                    # Summarize the article
-                    try:
-                        summary = summarize_article(question, abstract_text, LLM_CONFIGS["summarization"])
-                        pmid = article.get('MedlineCitation', {}).get('PMID', 'Unknown')
-                        # Ensure the summary begins with a marker used by synthesis and citation builder.
-                        summary_with_pmid = f"Article PMID:{pmid}\n{summary}"
-                        article_summaries.append(summary_with_pmid)
-                    except Exception as e:
-                        pmid = article.get('MedlineCitation', {}).get('PMID', 'Unknown')
-                        logger.error(f"Error summarizing article PMID {pmid}: {str(e)}")
-                        irrelevant_articles.append(f"Article with PMID: {pmid}")
+                article_summaries, irrelevant_articles = process_articles(
+                    search_results, question, LLM_CONFIGS
+                )
 
             if not article_summaries:
                 st.warning("No relevant articles were found or all article processing failed.")
@@ -416,4 +461,5 @@ def main():
     """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
+    # Run the async main function
     main() 
