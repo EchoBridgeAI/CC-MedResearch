@@ -17,4 +17,8 @@ aiohttp>=3.9.0
 python-dateutil>=2.8.2
 
 # Optional but recommended
-tqdm>=4.66.0  # For progress bars 
+tqdm>=4.66.0  # For progress bars
+
+# Added from the code block
+beautifulsoup4
+requests 
