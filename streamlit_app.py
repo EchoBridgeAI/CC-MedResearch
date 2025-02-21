@@ -441,8 +441,34 @@ def extract_pmid_from_text(text):
     return match.group(1) if match else "Unknown"
 
 def main():
-    # Revert back to hospital emoji
+    # Get password from environment variables
+    correct_password = os.getenv('APP_PASSWORD')
+    if not correct_password:
+        st.error("No password set. Please set APP_PASSWORD in .env file")
+        return
+    
+    # Initialize session state for authentication
+    if 'authenticated' not in st.session_state:
+        st.session_state.authenticated = False
+        
+    # Show password input only if not authenticated
+    if not st.session_state.authenticated:
+        password = st.text_input("Enter password", type="password")
+        
+        if not password:
+            st.warning("Please enter the password to access the application")
+            return
+            
+        if password != correct_password:
+            st.error("Incorrect password")
+            return
+        
+        st.session_state.authenticated = True
+        st.rerun()
+    
+    # Rest of your main function code starts here
     st.title("🏥 CC Medical Research Assistant")
+    st.write("Ask a medical research question and get answers based on PubMed articles.")
     
     # Add sidebar for configuration
     with st.sidebar:

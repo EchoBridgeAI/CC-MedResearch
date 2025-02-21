@@ -21,4 +21,5 @@ tqdm>=4.66.0  # For progress bars
 
 # Added from the code block
 beautifulsoup4
-requests 
+requests
+groq 
