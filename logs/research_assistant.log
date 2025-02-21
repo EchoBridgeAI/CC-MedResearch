@@ -1,417 +1,75 @@
-=== New Session Started at 2025-02-18 10:32:01.364172 ===
-2025-02-18 10:32:01,365 - root - INFO - === Starting new research session ===
-2025-02-18 10:32:01,365 - root - INFO - Starting PubMed search
-2025-02-18 10:32:01,366 - query_generation - INFO - Generating query for question: How do different GBM mutations (e.g., EGFRvIII, IDH1, TP53, MGMT methylation) influence the effectiveness of current and emerging treatments, including targeted therapies, immunotherapy, and tumor-treating fields (TTF)?
-2025-02-18 10:32:05,282 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:05,289 - query_generation - INFO - Generated PubMed query: ("Glioblastoma"[MeSH] OR glioblastoma[Title/Abstract] OR GBM[Title/Abstract])  
+=== New Session Started at 2025-02-21 13:12:22.696672 ===
+2025-02-21 13:12:22,698 - query_generation - INFO - Generating query for question: How do different GBM mutations (e.g., EGFRvIII, IDH1, TP53, MGMT methylation) influence the effectiveness of current and emerging treatments, including targeted therapies, immunotherapy, and tumor-treating fields (TTF)?
+
+2025-02-21 13:12:26,311 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-02-21 13:12:26,320 - query_generation - INFO - Generated PubMed query: ("Glioblastoma"[MeSH] OR "Glioblastoma"[Title/Abstract] OR "GBM"[Title/Abstract])  
 AND  
-("Mutation"[MeSH] OR mutation*[Title/Abstract] OR "Genetic Variation"[MeSH] OR "Genetic Alteration"[Title/Abstract])  
+("Mutation"[MeSH] OR "Mutation"[Title/Abstract] OR "Genetic Variants"[Title/Abstract] OR "Molecular Alterations"[Title/Abstract])  
 AND  
-("EGFRvIII"[Title/Abstract] OR "Epidermal Growth Factor Receptor Variant III"[Title/Abstract] OR "IDH1"[Title/Abstract] OR "Isocitrate Dehydrogenase 1"[Title/Abstract] OR "TP53"[Title/Abstract] OR "Tumor Protein p53"[Title/Abstract] OR "MGMT"[Title/Abstract] OR "O(6)-Methylguanine-DNA Methyltransferase"[Title/Abstract] OR "MGMT methylation"[Title/Abstract])  
+("EGFRvIII"[Title/Abstract] OR "Epidermal Growth Factor Receptor Variant III"[Title/Abstract] OR "IDH1"[Title/Abstract] OR "Isocitrate Dehydrogenase 1"[Title/Abstract] OR "TP53"[Title/Abstract] OR "Tumor Protein p53"[Title/Abstract] OR "MGMT"[Title/Abstract] OR "O6-Methylguanine-DNA Methyltransferase"[Title/Abstract] OR "MGMT Methylation"[Title/Abstract])  
 AND  
-("Therapeutics"[MeSH] OR "Treatment Outcome"[MeSH] OR treatment*[Title/Abstract] OR therapy[Title/Abstract] OR therapies[Title/Abstract] OR "Drug Therapy"[MeSH])  
-AND  
-("Targeted Therapy"[MeSH] OR "Molecular Targeted Therapy"[Title/Abstract] OR "Precision Medicine"[MeSH] OR "Immunotherapy"[MeSH] OR immunotherapy[Title/Abstract] OR "Tumor Treating Fields"[Title/Abstract] OR TTF[Title/Abstract])
-2025-02-18 10:32:05,289 - root - INFO - Using query: ("Glioblastoma"[MeSH] OR glioblastoma[Title/Abstract] OR GBM[Title/Abstract])  
-AND  
-("Mutation"[MeSH] OR mutation*[Title/Abstract] OR "Genetic Variation"[MeSH] OR "Genetic Alteration"[Title/Abstract])  
-AND  
-("EGFRvIII"[Title/Abstract] OR "Epidermal Growth Factor Receptor Variant III"[Title/Abstract] OR "IDH1"[Title/Abstract] OR "Isocitrate Dehydrogenase 1"[Title/Abstract] OR "TP53"[Title/Abstract] OR "Tumor Protein p53"[Title/Abstract] OR "MGMT"[Title/Abstract] OR "O(6)-Methylguanine-DNA Methyltransferase"[Title/Abstract] OR "MGMT methylation"[Title/Abstract])  
-AND  
-("Therapeutics"[MeSH] OR "Treatment Outcome"[MeSH] OR treatment*[Title/Abstract] OR therapy[Title/Abstract] OR therapies[Title/Abstract] OR "Drug Therapy"[MeSH])  
-AND  
-("Targeted Therapy"[MeSH] OR "Molecular Targeted Therapy"[Title/Abstract] OR "Precision Medicine"[MeSH] OR "Immunotherapy"[MeSH] OR immunotherapy[Title/Abstract] OR "Tumor Treating Fields"[Title/Abstract] OR TTF[Title/Abstract])
-2025-02-18 10:32:05,289 - root - INFO - Full query with date range: (("Glioblastoma"[MeSH] OR glioblastoma[Title/Abstract] OR GBM[Title/Abstract])  
-AND  
-("Mutation"[MeSH] OR mutation*[Title/Abstract] OR "Genetic Variation"[MeSH] OR "Genetic Alteration"[Title/Abstract])  
-AND  
-("EGFRvIII"[Title/Abstract] OR "Epidermal Growth Factor Receptor Variant III"[Title/Abstract] OR "IDH1"[Title/Abstract] OR "Isocitrate Dehydrogenase 1"[Title/Abstract] OR "TP53"[Title/Abstract] OR "Tumor Protein p53"[Title/Abstract] OR "MGMT"[Title/Abstract] OR "O(6)-Methylguanine-DNA Methyltransferase"[Title/Abstract] OR "MGMT methylation"[Title/Abstract])  
-AND  
-("Therapeutics"[MeSH] OR "Treatment Outcome"[MeSH] OR treatment*[Title/Abstract] OR therapy[Title/Abstract] OR therapies[Title/Abstract] OR "Drug Therapy"[MeSH])  
-AND  
-("Targeted Therapy"[MeSH] OR "Molecular Targeted Therapy"[Title/Abstract] OR "Precision Medicine"[MeSH] OR "Immunotherapy"[MeSH] OR immunotherapy[Title/Abstract] OR "Tumor Treating Fields"[Title/Abstract] OR TTF[Title/Abstract])) AND 2015/02/21:2025/02/18[Date - Publication]
-2025-02-18 10:32:07,379 - root - INFO - Retrieved 25 articles
-2025-02-18 10:32:07,379 - root - INFO - Retrieved 25 articles from PubMed
-2025-02-18 10:32:07,380 - root - INFO - Processing article PMID: 39906459
-2025-02-18 10:32:07,380 - root - INFO - Processing article PMID: 39864140
-2025-02-18 10:32:07,380 - root - INFO - PMID 39906459: Abstract length: 2894
-2025-02-18 10:32:07,381 - root - INFO - Processing article PMID: 39684714
-2025-02-18 10:32:07,381 - root - INFO - Processing article PMID: 39586078
-2025-02-18 10:32:07,381 - root - INFO - Processing article PMID: 39387496
-2025-02-18 10:32:07,381 - root - INFO - PMID 39864140: Abstract length: 1871
-2025-02-18 10:32:07,381 - root - INFO - Processing article PMID: 39085480
-2025-02-18 10:32:07,381 - root - INFO - Processing article PMID: 39030304
-2025-02-18 10:32:07,381 - root - INFO - Processing article PMID: 38686271
-2025-02-18 10:32:07,382 - root - INFO - PMID 39684714: Abstract length: 1421
-2025-02-18 10:32:07,382 - root - INFO - PMID 39586078: Abstract length: 1515
-2025-02-18 10:32:07,382 - root - INFO - PMID 39387496: Abstract length: 1814
-2025-02-18 10:32:07,382 - root - INFO - PMID 39085480: Abstract length: 2232
-2025-02-18 10:32:07,382 - root - INFO - PMID 39030304: Abstract length: 1591
-2025-02-18 10:32:07,382 - root - INFO - PMID 38686271: Abstract length: 1896
-2025-02-18 10:32:07,883 - root - INFO - Starting relevance check for PMID: 39906459
-2025-02-18 10:32:07,883 - root - INFO - Starting relevance check for PMID: 39864140
-2025-02-18 10:32:07,888 - root - INFO - Starting relevance check for PMID: 39684714
-2025-02-18 10:32:07,889 - root - INFO - Starting relevance check for PMID: 39085480
-2025-02-18 10:32:07,889 - root - INFO - Starting relevance check for PMID: 39030304
-2025-02-18 10:32:07,889 - root - INFO - Starting relevance check for PMID: 39586078
-2025-02-18 10:32:07,889 - root - INFO - Starting relevance check for PMID: 39387496
-2025-02-18 10:32:07,889 - root - INFO - Starting relevance check for PMID: 38686271
-2025-02-18 10:32:08,524 - root - INFO - Making relevance check API call to Groq
-2025-02-18 10:32:08,574 - root - INFO - Making relevance check API call to Groq
-2025-02-18 10:32:08,579 - root - INFO - Making relevance check API call to Groq
-2025-02-18 10:32:08,583 - root - INFO - Making relevance check API call to Groq
-2025-02-18 10:32:08,584 - root - INFO - Making relevance check API call to Groq
-2025-02-18 10:32:08,585 - root - INFO - Making relevance check API call to Groq
-2025-02-18 10:32:08,585 - root - INFO - Making relevance check API call to Groq
-2025-02-18 10:32:08,585 - root - INFO - Making relevance check API call to Groq
-2025-02-18 10:32:09,248 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:09,253 - root - INFO - Received response from Groq: Yes.
-2025-02-18 10:32:09,253 - root - INFO - Relevance check result for PMID 39030304: True
-2025-02-18 10:32:09,253 - root - INFO - Fetching full text for PMID 39030304
-2025-02-18 10:32:09,353 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:09,355 - root - INFO - Received response from Groq: Yes.
-2025-02-18 10:32:09,355 - root - INFO - Relevance check result for PMID 39586078: True
-2025-02-18 10:32:09,355 - root - INFO - Fetching full text for PMID 39586078
-2025-02-18 10:32:09,383 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:09,385 - root - INFO - Received response from Groq: Yes.
-2025-02-18 10:32:09,386 - root - INFO - Relevance check result for PMID 39684714: True
-2025-02-18 10:32:09,386 - root - INFO - Fetching full text for PMID 39684714
-2025-02-18 10:32:09,457 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:09,458 - root - INFO - Received response from Groq: No.
-2025-02-18 10:32:09,458 - root - INFO - Relevance check result for PMID 38686271: False
-2025-02-18 10:32:09,458 - root - INFO - Processing article PMID: 38396993
-2025-02-18 10:32:09,458 - root - INFO - PMID 38396993: Abstract length: 1523
-2025-02-18 10:32:09,465 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:09,466 - root - INFO - Received response from Groq: Yes.
-2025-02-18 10:32:09,466 - root - INFO - Relevance check result for PMID 39387496: True
-2025-02-18 10:32:09,466 - root - INFO - Fetching full text for PMID 39387496
-2025-02-18 10:32:09,497 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:09,498 - root - INFO - Received response from Groq: Yes.
-2025-02-18 10:32:09,498 - root - INFO - Relevance check result for PMID 39906459: True
-2025-02-18 10:32:09,498 - root - INFO - Fetching full text for PMID 39906459
-2025-02-18 10:32:09,527 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:09,528 - root - INFO - Received response from Groq: Yes.
-2025-02-18 10:32:09,528 - root - INFO - Relevance check result for PMID 39085480: True
-2025-02-18 10:32:09,528 - root - INFO - Fetching full text for PMID 39085480
-2025-02-18 10:32:09,684 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:09,687 - root - INFO - Received response from Groq: Yes.
-2025-02-18 10:32:09,687 - root - INFO - Relevance check result for PMID 39864140: True
-2025-02-18 10:32:09,688 - root - INFO - Fetching full text for PMID 39864140
-2025-02-18 10:32:09,958 - root - INFO - Starting relevance check for PMID: 38396993
-2025-02-18 10:32:09,970 - summarization - ERROR - PMC fetch error for 39387496: Expecting value: line 1 column 1 (char 0)
-2025-02-18 10:32:09,988 - summarization - ERROR - PMC fetch error for 39906459: Expecting value: line 1 column 1 (char 0)
-2025-02-18 10:32:09,996 - root - INFO - Making relevance check API call to Groq
-2025-02-18 10:32:10,016 - summarization - ERROR - PMC fetch error for 39586078: Expecting value: line 1 column 1 (char 0)
-2025-02-18 10:32:10,160 - summarization - ERROR - PMC fetch error for 39684714: Expecting value: line 1 column 1 (char 0)
-2025-02-18 10:32:10,174 - summarization - ERROR - PMC fetch error for 39030304: Expecting value: line 1 column 1 (char 0)
-2025-02-18 10:32:10,174 - summarization - ERROR - PMC fetch error for 39085480: Expecting value: line 1 column 1 (char 0)
-2025-02-18 10:32:10,267 - summarization - ERROR - PMC fetch error for 39864140: Expecting value: line 1 column 1 (char 0)
-2025-02-18 10:32:10,274 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:10,275 - root - INFO - Received response from Groq: Yes.
-2025-02-18 10:32:10,275 - root - INFO - Relevance check result for PMID 38396993: True
-2025-02-18 10:32:10,275 - root - INFO - Fetching full text for PMID 38396993
-2025-02-18 10:32:10,763 - summarization - ERROR - PMC fetch error for 38396993: Expecting value: line 1 column 1 (char 0)
-2025-02-18 10:32:10,911 - summarization - WARNING - Could not find full text for PMID 39030304
-2025-02-18 10:32:10,924 - summarization - WARNING - Could not find full text for PMID 39906459
-2025-02-18 10:32:10,924 - summarization - WARNING - Could not find full text for PMID 39085480
-2025-02-18 10:32:10,925 - summarization - WARNING - Could not find full text for PMID 39586078
-2025-02-18 10:32:10,925 - summarization - WARNING - Could not find full text for PMID 39387496
-2025-02-18 10:32:10,931 - summarization - WARNING - Could not find full text for PMID 39864140
-2025-02-18 10:32:10,932 - summarization - WARNING - Could not find full text for PMID 39684714
-2025-02-18 10:32:11,416 - root - INFO - Starting summarization for PMID 39030304
-2025-02-18 10:32:11,419 - summarization - INFO - Starting summarization for PMID: Unknown
-2025-02-18 10:32:11,420 - summarization - INFO - Making Groq API call for PMID: Unknown
-2025-02-18 10:32:11,431 - root - INFO - Starting summarization for PMID 39906459
-2025-02-18 10:32:11,431 - root - INFO - Starting summarization for PMID 39085480
-2025-02-18 10:32:11,431 - root - INFO - Starting summarization for PMID 39586078
-2025-02-18 10:32:11,431 - summarization - INFO - Starting summarization for PMID: Unknown
-2025-02-18 10:32:11,432 - summarization - INFO - Making Groq API call for PMID: Unknown
-2025-02-18 10:32:11,431 - summarization - INFO - Starting summarization for PMID: Unknown
-2025-02-18 10:32:11,431 - summarization - INFO - Starting summarization for PMID: Unknown
-2025-02-18 10:32:11,431 - root - INFO - Starting summarization for PMID 39387496
-2025-02-18 10:32:11,433 - summarization - INFO - Making Groq API call for PMID: Unknown
-2025-02-18 10:32:11,433 - summarization - INFO - Making Groq API call for PMID: Unknown
-2025-02-18 10:32:11,433 - summarization - INFO - Starting summarization for PMID: Unknown
-2025-02-18 10:32:11,436 - summarization - INFO - Making Groq API call for PMID: Unknown
-2025-02-18 10:32:11,437 - root - INFO - Starting summarization for PMID 39864140
-2025-02-18 10:32:11,437 - root - INFO - Starting summarization for PMID 39684714
-2025-02-18 10:32:11,440 - summarization - INFO - Starting summarization for PMID: Unknown
-2025-02-18 10:32:11,440 - summarization - INFO - Starting summarization for PMID: Unknown
-2025-02-18 10:32:11,441 - summarization - INFO - Making Groq API call for PMID: Unknown
-2025-02-18 10:32:11,441 - summarization - INFO - Making Groq API call for PMID: Unknown
-2025-02-18 10:32:11,453 - summarization - WARNING - Could not find full text for PMID 38396993
-2025-02-18 10:32:11,958 - root - INFO - Starting summarization for PMID 38396993
-2025-02-18 10:32:11,960 - summarization - INFO - Starting summarization for PMID: Unknown
-2025-02-18 10:32:11,960 - summarization - INFO - Making Groq API call for PMID: Unknown
-2025-02-18 10:32:13,540 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:13,543 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:13,544 - summarization - INFO - Successfully summarized PMID: Unknown
-2025-02-18 10:32:13,544 - root - INFO - Successfully summarized PMID 39586078
-2025-02-18 10:32:13,544 - root - INFO - Processing article PMID: 38079020
-2025-02-18 10:32:13,545 - summarization - INFO - Successfully summarized PMID: Unknown
-2025-02-18 10:32:13,545 - root - INFO - PMID 38079020: Abstract length: 2179
-2025-02-18 10:32:13,545 - root - INFO - Successfully summarized PMID 39030304
-2025-02-18 10:32:13,545 - root - INFO - Processing article PMID: 37999122
-2025-02-18 10:32:13,545 - root - INFO - PMID 37999122: Abstract length: 1641
-2025-02-18 10:32:13,657 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:13,658 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:13,660 - summarization - INFO - Successfully summarized PMID: Unknown
-2025-02-18 10:32:13,660 - root - INFO - Successfully summarized PMID 39684714
-2025-02-18 10:32:13,660 - root - INFO - Processing article PMID: 37881322
-2025-02-18 10:32:13,661 - summarization - INFO - Successfully summarized PMID: Unknown
-2025-02-18 10:32:13,661 - root - INFO - PMID 37881322: Abstract length: 1108
-2025-02-18 10:32:13,661 - root - INFO - Successfully summarized PMID 39387496
-2025-02-18 10:32:13,661 - root - INFO - Processing article PMID: 37766136
-2025-02-18 10:32:13,661 - root - INFO - PMID 37766136: Abstract length: 2155
-2025-02-18 10:32:13,702 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:13,703 - summarization - INFO - Successfully summarized PMID: Unknown
-2025-02-18 10:32:13,703 - root - INFO - Successfully summarized PMID 39864140
-2025-02-18 10:32:13,704 - root - INFO - Processing article PMID: 37417289
-2025-02-18 10:32:13,704 - root - INFO - PMID 37417289: Abstract length: 1638
-2025-02-18 10:32:13,787 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:13,788 - summarization - INFO - Successfully summarized PMID: Unknown
-2025-02-18 10:32:13,789 - root - INFO - Successfully summarized PMID 38396993
-2025-02-18 10:32:13,789 - root - INFO - Processing article PMID: 37382632
-2025-02-18 10:32:13,789 - root - INFO - PMID 37382632: Abstract length: 1846
-2025-02-18 10:32:13,893 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:13,895 - summarization - INFO - Successfully summarized PMID: Unknown
-2025-02-18 10:32:13,895 - root - INFO - Successfully summarized PMID 39085480
-2025-02-18 10:32:13,895 - root - INFO - Processing article PMID: 37190598
-2025-02-18 10:32:13,896 - root - INFO - PMID 37190598: Abstract length: 1624
-2025-02-18 10:32:14,050 - root - INFO - Starting relevance check for PMID: 38079020
-2025-02-18 10:32:14,051 - root - INFO - Starting relevance check for PMID: 37999122
-2025-02-18 10:32:14,080 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:14,081 - summarization - INFO - Successfully summarized PMID: Unknown
-2025-02-18 10:32:14,081 - root - INFO - Successfully summarized PMID 39906459
-2025-02-18 10:32:14,081 - root - INFO - Processing article PMID: 37161052
-2025-02-18 10:32:14,081 - root - INFO - PMID 37161052: Abstract length: 1374
-2025-02-18 10:32:14,099 - root - INFO - Making relevance check API call to Groq
-2025-02-18 10:32:14,099 - root - INFO - Making relevance check API call to Groq
-2025-02-18 10:32:14,163 - root - INFO - Starting relevance check for PMID: 37766136
-2025-02-18 10:32:14,166 - root - INFO - Starting relevance check for PMID: 37881322
-2025-02-18 10:32:14,203 - root - INFO - Making relevance check API call to Groq
-2025-02-18 10:32:14,205 - root - INFO - Making relevance check API call to Groq
-2025-02-18 10:32:14,206 - root - INFO - Starting relevance check for PMID: 37417289
-2025-02-18 10:32:14,223 - root - INFO - Making relevance check API call to Groq
-2025-02-18 10:32:14,294 - root - INFO - Starting relevance check for PMID: 37382632
-2025-02-18 10:32:14,315 - root - INFO - Making relevance check API call to Groq
-2025-02-18 10:32:14,352 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:14,352 - root - INFO - Received response from Groq: Yes.
-2025-02-18 10:32:14,352 - root - INFO - Relevance check result for PMID 38079020: True
-2025-02-18 10:32:14,352 - root - INFO - Fetching full text for PMID 38079020
-2025-02-18 10:32:14,401 - root - INFO - Starting relevance check for PMID: 37190598
-2025-02-18 10:32:14,419 - root - INFO - Making relevance check API call to Groq
-2025-02-18 10:32:14,516 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:14,517 - root - INFO - Received response from Groq: Yes.
-2025-02-18 10:32:14,517 - root - INFO - Relevance check result for PMID 37881322: True
-2025-02-18 10:32:14,517 - root - INFO - Fetching full text for PMID 37881322
-2025-02-18 10:32:14,575 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:14,576 - root - INFO - Received response from Groq: Yes.
-2025-02-18 10:32:14,576 - root - INFO - Relevance check result for PMID 37999122: True
-2025-02-18 10:32:14,576 - root - INFO - Fetching full text for PMID 37999122
-2025-02-18 10:32:14,586 - root - INFO - Starting relevance check for PMID: 37161052
-2025-02-18 10:32:14,621 - root - INFO - Making relevance check API call to Groq
-2025-02-18 10:32:14,749 - summarization - ERROR - PMC fetch error for 38079020: Expecting value: line 1 column 1 (char 0)
-2025-02-18 10:32:14,890 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:14,891 - root - INFO - Received response from Groq: Yes.
-2025-02-18 10:32:14,891 - root - INFO - Relevance check result for PMID 37417289: True
-2025-02-18 10:32:14,891 - root - INFO - Fetching full text for PMID 37417289
-2025-02-18 10:32:14,970 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:14,973 - root - INFO - Received response from Groq: Yes.
-2025-02-18 10:32:14,973 - root - INFO - Relevance check result for PMID 37382632: True
-2025-02-18 10:32:14,973 - root - INFO - Fetching full text for PMID 37382632
-2025-02-18 10:32:15,019 - summarization - ERROR - PMC fetch error for 37881322: Expecting value: line 1 column 1 (char 0)
-2025-02-18 10:32:15,025 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:15,026 - root - INFO - Received response from Groq: Yes.
-2025-02-18 10:32:15,026 - root - INFO - Relevance check result for PMID 37766136: True
-2025-02-18 10:32:15,026 - root - INFO - Fetching full text for PMID 37766136
-2025-02-18 10:32:15,100 - summarization - ERROR - PMC fetch error for 37999122: Expecting value: line 1 column 1 (char 0)
-2025-02-18 10:32:15,191 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:15,192 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:15,193 - root - INFO - Received response from Groq: No.
-2025-02-18 10:32:15,193 - root - INFO - Relevance check result for PMID 37190598: False
-2025-02-18 10:32:15,193 - root - INFO - Received response from Groq: Yes.
-2025-02-18 10:32:15,193 - root - INFO - Relevance check result for PMID 37161052: True
-2025-02-18 10:32:15,193 - root - INFO - Fetching full text for PMID 37161052
-2025-02-18 10:32:15,193 - root - INFO - Processing article PMID: 37140883
-2025-02-18 10:32:15,194 - root - INFO - PMID 37140883: Abstract length: 1606
-2025-02-18 10:32:15,400 - summarization - ERROR - PMC fetch error for 37417289: Expecting value: line 1 column 1 (char 0)
-2025-02-18 10:32:15,429 - summarization - WARNING - Could not find full text for PMID 38079020
-2025-02-18 10:32:15,475 - summarization - ERROR - PMC fetch error for 37382632: Expecting value: line 1 column 1 (char 0)
-2025-02-18 10:32:15,542 - summarization - ERROR - PMC fetch error for 37766136: Expecting value: line 1 column 1 (char 0)
-2025-02-18 10:32:15,560 - summarization - ERROR - PMC fetch error for 37161052: Expecting value: line 1 column 1 (char 0)
-2025-02-18 10:32:15,697 - root - INFO - Starting relevance check for PMID: 37140883
-2025-02-18 10:32:15,730 - root - INFO - Making relevance check API call to Groq
-2025-02-18 10:32:15,731 - summarization - WARNING - Could not find full text for PMID 37881322
-2025-02-18 10:32:15,839 - summarization - WARNING - Could not find full text for PMID 37999122
-2025-02-18 10:32:15,934 - root - INFO - Starting summarization for PMID 38079020
-2025-02-18 10:32:15,934 - summarization - INFO - Starting summarization for PMID: Unknown
-2025-02-18 10:32:15,934 - summarization - INFO - Making Groq API call for PMID: Unknown
-2025-02-18 10:32:16,081 - summarization - WARNING - Could not find full text for PMID 37417289
-2025-02-18 10:32:16,183 - summarization - WARNING - Could not find full text for PMID 37382632
-2025-02-18 10:32:16,236 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:16,237 - root - INFO - Starting summarization for PMID 37881322
-2025-02-18 10:32:16,237 - summarization - INFO - Starting summarization for PMID: Unknown
-2025-02-18 10:32:16,238 - summarization - INFO - Making Groq API call for PMID: Unknown
-2025-02-18 10:32:16,239 - root - INFO - Received response from Groq: Yes.
-2025-02-18 10:32:16,242 - root - INFO - Relevance check result for PMID 37140883: True
-2025-02-18 10:32:16,243 - root - INFO - Fetching full text for PMID 37140883
-2025-02-18 10:32:16,271 - summarization - WARNING - Could not find full text for PMID 37161052
-2025-02-18 10:32:16,351 - root - INFO - Starting summarization for PMID 37999122
-2025-02-18 10:32:16,352 - summarization - INFO - Starting summarization for PMID: Unknown
-2025-02-18 10:32:16,352 - summarization - INFO - Making Groq API call for PMID: Unknown
-2025-02-18 10:32:16,583 - root - INFO - Starting summarization for PMID 37417289
-2025-02-18 10:32:16,583 - summarization - INFO - Starting summarization for PMID: Unknown
-2025-02-18 10:32:16,584 - summarization - INFO - Making Groq API call for PMID: Unknown
-2025-02-18 10:32:16,685 - root - INFO - Starting summarization for PMID 37382632
-2025-02-18 10:32:16,686 - summarization - INFO - Starting summarization for PMID: Unknown
-2025-02-18 10:32:16,686 - summarization - INFO - Making Groq API call for PMID: Unknown
-2025-02-18 10:32:16,721 - summarization - WARNING - Could not find full text for PMID 37766136
-2025-02-18 10:32:16,777 - summarization - ERROR - PMC fetch error for 37140883: Expecting value: line 1 column 1 (char 0)
-2025-02-18 10:32:16,778 - root - INFO - Starting summarization for PMID 37161052
-2025-02-18 10:32:16,778 - summarization - INFO - Starting summarization for PMID: Unknown
-2025-02-18 10:32:16,778 - summarization - INFO - Making Groq API call for PMID: Unknown
-2025-02-18 10:32:17,227 - root - INFO - Starting summarization for PMID 37766136
-2025-02-18 10:32:17,227 - summarization - INFO - Starting summarization for PMID: Unknown
-2025-02-18 10:32:17,228 - summarization - INFO - Making Groq API call for PMID: Unknown
-2025-02-18 10:32:17,494 - summarization - WARNING - Could not find full text for PMID 37140883
-2025-02-18 10:32:17,541 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:17,544 - summarization - INFO - Successfully summarized PMID: Unknown
-2025-02-18 10:32:17,544 - root - INFO - Successfully summarized PMID 37881322
-2025-02-18 10:32:17,544 - root - INFO - Processing article PMID: 37056065
-2025-02-18 10:32:17,544 - root - INFO - PMID 37056065: Abstract length: 1063
-2025-02-18 10:32:17,997 - root - INFO - Starting summarization for PMID 37140883
-2025-02-18 10:32:17,997 - summarization - INFO - Starting summarization for PMID: Unknown
-2025-02-18 10:32:17,998 - summarization - INFO - Making Groq API call for PMID: Unknown
-2025-02-18 10:32:18,050 - root - INFO - Starting relevance check for PMID: 37056065
-2025-02-18 10:32:18,077 - root - INFO - Making relevance check API call to Groq
-2025-02-18 10:32:18,077 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:18,079 - summarization - INFO - Successfully summarized PMID: Unknown
-2025-02-18 10:32:18,079 - root - INFO - Successfully summarized PMID 37417289
-2025-02-18 10:32:18,079 - root - INFO - Processing article PMID: 36902447
-2025-02-18 10:32:18,079 - root - INFO - PMID 36902447: Abstract length: 1578
-2025-02-18 10:32:18,290 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:18,292 - summarization - INFO - Successfully summarized PMID: Unknown
-2025-02-18 10:32:18,292 - root - INFO - Successfully summarized PMID 37999122
-2025-02-18 10:32:18,292 - root - INFO - Processing article PMID: 36890859
-2025-02-18 10:32:18,292 - root - INFO - PMID 36890859: Abstract length: 1706
-2025-02-18 10:32:18,394 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:18,395 - summarization - INFO - Successfully summarized PMID: Unknown
-2025-02-18 10:32:18,396 - root - INFO - Successfully summarized PMID 38079020
-2025-02-18 10:32:18,396 - root - INFO - Processing article PMID: 36881002
-2025-02-18 10:32:18,396 - root - INFO - PMID 36881002: Abstract length: 1580
-2025-02-18 10:32:18,584 - root - INFO - Starting relevance check for PMID: 36902447
-2025-02-18 10:32:18,612 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:18,612 - root - INFO - Making relevance check API call to Groq
-2025-02-18 10:32:18,614 - summarization - INFO - Successfully summarized PMID: Unknown
-2025-02-18 10:32:18,614 - root - INFO - Successfully summarized PMID 37161052
-2025-02-18 10:32:18,614 - root - INFO - Processing article PMID: 36741707
-2025-02-18 10:32:18,614 - root - INFO - PMID 36741707: Abstract length: 1587
-2025-02-18 10:32:18,639 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:18,639 - summarization - INFO - Successfully summarized PMID: Unknown
-2025-02-18 10:32:18,639 - root - INFO - Successfully summarized PMID 37382632
-2025-02-18 10:32:18,639 - root - INFO - Processing article PMID: 36685556
-2025-02-18 10:32:18,639 - root - INFO - PMID 36685556: Abstract length: 1606
-2025-02-18 10:32:18,797 - root - INFO - Starting relevance check for PMID: 36890859
-2025-02-18 10:32:18,830 - root - INFO - Making relevance check API call to Groq
-2025-02-18 10:32:18,897 - root - INFO - Starting relevance check for PMID: 36881002
-2025-02-18 10:32:18,926 - root - INFO - Making relevance check API call to Groq
-2025-02-18 10:32:19,034 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:19,035 - root - INFO - Received response from Groq: Yes.
-2025-02-18 10:32:19,035 - root - INFO - Relevance check result for PMID 37056065: True
-2025-02-18 10:32:19,035 - root - INFO - Fetching full text for PMID 37056065
-2025-02-18 10:32:19,119 - root - INFO - Starting relevance check for PMID: 36741707
-2025-02-18 10:32:19,144 - root - INFO - Starting relevance check for PMID: 36685556
-2025-02-18 10:32:19,160 - root - INFO - Making relevance check API call to Groq
-2025-02-18 10:32:19,174 - root - INFO - Making relevance check API call to Groq
-2025-02-18 10:32:19,317 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:19,318 - root - INFO - Received response from Groq: Yes.
-2025-02-18 10:32:19,318 - root - INFO - Relevance check result for PMID 36902447: True
-2025-02-18 10:32:19,318 - root - INFO - Fetching full text for PMID 36902447
-2025-02-18 10:32:19,325 - summarization - ERROR - PMC fetch error for 37056065: Expecting value: line 1 column 1 (char 0)
-2025-02-18 10:32:19,401 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:19,404 - root - INFO - Received response from Groq: Yes.
-2025-02-18 10:32:19,404 - root - INFO - Relevance check result for PMID 36685556: True
-2025-02-18 10:32:19,404 - root - INFO - Fetching full text for PMID 36685556
-2025-02-18 10:32:19,535 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:19,538 - summarization - INFO - Successfully summarized PMID: Unknown
-2025-02-18 10:32:19,538 - root - INFO - Successfully summarized PMID 37766136
-2025-02-18 10:32:19,538 - root - INFO - Processing article PMID: 36587382
-2025-02-18 10:32:19,539 - root - INFO - PMID 36587382: Abstract length: 3085
-2025-02-18 10:32:19,569 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:19,571 - root - INFO - Received response from Groq: Yes.
-2025-02-18 10:32:19,571 - root - INFO - Relevance check result for PMID 36881002: True
-2025-02-18 10:32:19,571 - root - INFO - Fetching full text for PMID 36881002
-2025-02-18 10:32:19,709 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:19,710 - root - INFO - Received response from Groq: Yes.
-2025-02-18 10:32:19,711 - root - INFO - Relevance check result for PMID 36890859: True
-2025-02-18 10:32:19,711 - root - INFO - Fetching full text for PMID 36890859
-2025-02-18 10:32:19,786 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:19,787 - root - INFO - Received response from Groq: Yes.
-2025-02-18 10:32:19,787 - root - INFO - Relevance check result for PMID 36741707: True
-2025-02-18 10:32:19,787 - root - INFO - Fetching full text for PMID 36741707
-2025-02-18 10:32:19,796 - summarization - ERROR - PMC fetch error for 36685556: Expecting value: line 1 column 1 (char 0)
-2025-02-18 10:32:19,830 - summarization - ERROR - PMC fetch error for 36902447: Expecting value: line 1 column 1 (char 0)
-2025-02-18 10:32:20,018 - summarization - WARNING - Could not find full text for PMID 37056065
-2025-02-18 10:32:20,044 - root - INFO - Starting relevance check for PMID: 36587382
-2025-02-18 10:32:20,051 - summarization - ERROR - PMC fetch error for 36890859: Expecting value: line 1 column 1 (char 0)
-2025-02-18 10:32:20,071 - root - INFO - Making relevance check API call to Groq
-2025-02-18 10:32:20,112 - summarization - ERROR - PMC fetch error for 36741707: Expecting value: line 1 column 1 (char 0)
-2025-02-18 10:32:20,119 - summarization - ERROR - PMC fetch error for 36881002: Expecting value: line 1 column 1 (char 0)
-2025-02-18 10:32:20,221 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:20,222 - summarization - INFO - Successfully summarized PMID: Unknown
-2025-02-18 10:32:20,222 - root - INFO - Successfully summarized PMID 37140883
-2025-02-18 10:32:20,478 - summarization - WARNING - Could not find full text for PMID 36685556
-2025-02-18 10:32:20,512 - summarization - WARNING - Could not find full text for PMID 36902447
-2025-02-18 10:32:20,522 - root - INFO - Starting summarization for PMID 37056065
-2025-02-18 10:32:20,522 - summarization - INFO - Starting summarization for PMID: Unknown
-2025-02-18 10:32:20,522 - summarization - INFO - Making Groq API call for PMID: Unknown
-2025-02-18 10:32:20,676 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:20,678 - root - INFO - Received response from Groq: Yes.
-2025-02-18 10:32:20,678 - root - INFO - Relevance check result for PMID 36587382: True
-2025-02-18 10:32:20,678 - root - INFO - Fetching full text for PMID 36587382
-2025-02-18 10:32:20,737 - summarization - WARNING - Could not find full text for PMID 36890859
-2025-02-18 10:32:20,803 - summarization - WARNING - Could not find full text for PMID 36881002
-2025-02-18 10:32:20,805 - summarization - WARNING - Could not find full text for PMID 36741707
-2025-02-18 10:32:20,983 - root - INFO - Starting summarization for PMID 36685556
-2025-02-18 10:32:20,984 - summarization - INFO - Starting summarization for PMID: Unknown
-2025-02-18 10:32:20,984 - summarization - INFO - Making Groq API call for PMID: Unknown
-2025-02-18 10:32:20,989 - summarization - ERROR - PMC fetch error for 36587382: Expecting value: line 1 column 1 (char 0)
-2025-02-18 10:32:21,017 - root - INFO - Starting summarization for PMID 36902447
-2025-02-18 10:32:21,018 - summarization - INFO - Starting summarization for PMID: Unknown
-2025-02-18 10:32:21,018 - summarization - INFO - Making Groq API call for PMID: Unknown
-2025-02-18 10:32:21,242 - root - INFO - Starting summarization for PMID 36890859
-2025-02-18 10:32:21,245 - summarization - INFO - Starting summarization for PMID: Unknown
-2025-02-18 10:32:21,245 - summarization - INFO - Making Groq API call for PMID: Unknown
-2025-02-18 10:32:21,305 - root - INFO - Starting summarization for PMID 36881002
-2025-02-18 10:32:21,306 - summarization - INFO - Starting summarization for PMID: Unknown
-2025-02-18 10:32:21,306 - summarization - INFO - Making Groq API call for PMID: Unknown
-2025-02-18 10:32:21,311 - root - INFO - Starting summarization for PMID 36741707
-2025-02-18 10:32:21,311 - summarization - INFO - Starting summarization for PMID: Unknown
-2025-02-18 10:32:21,312 - summarization - INFO - Making Groq API call for PMID: Unknown
-2025-02-18 10:32:21,694 - summarization - WARNING - Could not find full text for PMID 36587382
-2025-02-18 10:32:22,196 - root - INFO - Starting summarization for PMID 36587382
-2025-02-18 10:32:22,197 - summarization - INFO - Starting summarization for PMID: Unknown
-2025-02-18 10:32:22,197 - summarization - INFO - Making Groq API call for PMID: Unknown
-2025-02-18 10:32:22,366 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:22,367 - summarization - INFO - Successfully summarized PMID: Unknown
-2025-02-18 10:32:22,367 - root - INFO - Successfully summarized PMID 37056065
-2025-02-18 10:32:22,612 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:22,614 - summarization - INFO - Successfully summarized PMID: Unknown
-2025-02-18 10:32:22,614 - root - INFO - Successfully summarized PMID 36902447
-2025-02-18 10:32:22,949 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:22,951 - summarization - INFO - Successfully summarized PMID: Unknown
-2025-02-18 10:32:22,952 - root - INFO - Successfully summarized PMID 36890859
-2025-02-18 10:32:23,132 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:23,135 - summarization - INFO - Successfully summarized PMID: Unknown
-2025-02-18 10:32:23,135 - root - INFO - Successfully summarized PMID 36685556
-2025-02-18 10:32:23,292 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:23,295 - summarization - INFO - Successfully summarized PMID: Unknown
-2025-02-18 10:32:23,296 - root - INFO - Successfully summarized PMID 36881002
-2025-02-18 10:32:24,483 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:24,484 - summarization - INFO - Successfully summarized PMID: Unknown
-2025-02-18 10:32:24,484 - root - INFO - Successfully summarized PMID 36741707
-2025-02-18 10:32:24,997 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
-2025-02-18 10:32:25,000 - summarization - INFO - Successfully summarized PMID: Unknown
-2025-02-18 10:32:25,001 - root - INFO - Successfully summarized PMID 36587382
-2025-02-18 10:33:06,115 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+("Therapeutics"[MeSH] OR "Treatment Outcome"[MeSH] OR "Drug Therapy"[MeSH] OR "Targeted Therapy"[MeSH] OR "Molecular Targeted Therapy"[Title/Abstract] OR "Precision Medicine"[Title/Abstract] OR "Immunotherapy"[MeSH] OR "Immune Checkpoint Inhibitors"[MeSH] OR "Tumor Treating Fields"[Title/Abstract] OR "TTF"[Title/Abstract] OR "Optune"[Title/Abstract])
+2025-02-21 13:12:29,541 - root - INFO - Retrieved 5 articles
+2025-02-21 13:12:29,542 - root - INFO - Processing article PMID: 39684714
+2025-02-21 13:12:29,543 - root - INFO - Processing article PMID: 39539750
+2025-02-21 13:12:29,543 - root - INFO - Processing article PMID: 39422678
+2025-02-21 13:12:29,543 - root - INFO - PMID 39684714: Abstract length: 1421
+2025-02-21 13:12:29,543 - root - INFO - Processing article PMID: 39387496
+2025-02-21 13:12:29,543 - root - INFO - Processing article PMID: 39213667
+2025-02-21 13:12:29,544 - root - INFO - PMID 39539750: Abstract length: 2299
+2025-02-21 13:12:29,544 - root - INFO - PMID 39422678: Abstract length: 1903
+2025-02-21 13:12:29,544 - root - INFO - PMID 39387496: Abstract length: 1814
+2025-02-21 13:12:29,544 - root - INFO - PMID 39213667: Abstract length: 2373
+2025-02-21 13:12:30,049 - root - INFO - Starting relevance check for PMID: 39684714
+2025-02-21 13:12:30,050 - root - INFO - Starting relevance check for PMID: 39387496
+2025-02-21 13:12:30,050 - root - INFO - Starting relevance check for PMID: 39539750
+2025-02-21 13:12:30,050 - root - INFO - Starting relevance check for PMID: 39213667
+2025-02-21 13:12:30,050 - root - INFO - Starting relevance check for PMID: 39422678
+2025-02-21 13:12:30,212 - root - INFO - Making relevance check API call to Groq
+2025-02-21 13:12:30,216 - root - INFO - Making relevance check API call to Groq
+2025-02-21 13:12:30,217 - root - INFO - Making relevance check API call to Groq
+2025-02-21 13:12:30,218 - root - INFO - Making relevance check API call to Groq
+2025-02-21 13:12:30,219 - root - INFO - Making relevance check API call to Groq
+2025-02-21 13:12:30,729 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-02-21 13:12:30,734 - root - INFO - Received response from Groq: Yes.
+2025-02-21 13:12:30,734 - root - INFO - Relevance check result for PMID 39422678: True
+2025-02-21 13:12:30,734 - root - INFO - Fetching full text for PMID 39422678
+2025-02-21 13:12:30,793 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-02-21 13:12:30,795 - root - INFO - Received response from Groq: Yes.
+2025-02-21 13:12:30,795 - root - INFO - Relevance check result for PMID 39684714: True
+2025-02-21 13:12:30,795 - root - INFO - Fetching full text for PMID 39684714
+2025-02-21 13:12:30,872 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-02-21 13:12:30,874 - root - INFO - Received response from Groq: Yes.
+2025-02-21 13:12:30,875 - root - INFO - Relevance check result for PMID 39387496: True
+2025-02-21 13:12:30,875 - root - INFO - Fetching full text for PMID 39387496
+2025-02-21 13:12:30,940 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-02-21 13:12:30,942 - root - INFO - Received response from Groq: No.
+2025-02-21 13:12:30,943 - root - INFO - Relevance check result for PMID 39213667: False
+2025-02-21 13:12:31,005 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-02-21 13:12:31,006 - root - INFO - Received response from Groq: No.
+2025-02-21 13:12:31,007 - root - INFO - Relevance check result for PMID 39539750: False
+2025-02-21 13:12:31,271 - summarization - ERROR - PMC fetch error for 39422678: Expecting value: line 1 column 1 (char 0)
+2025-02-21 13:12:31,272 - summarization - ERROR - PMC fetch error for 39684714: Expecting value: line 1 column 1 (char 0)
+2025-02-21 13:12:31,272 - summarization - ERROR - PMC fetch error for 39387496: Expecting value: line 1 column 1 (char 0)
+2025-02-21 13:12:32,782 - summarization - WARNING - Could not find full text for PMID 39387496
+2025-02-21 13:12:32,785 - summarization - WARNING - Could not find full text for PMID 39422678
+2025-02-21 13:12:32,792 - summarization - WARNING - Could not find full text for PMID 39684714
+2025-02-21 13:12:33,284 - root - INFO - Starting summarization for PMID 39387496
+2025-02-21 13:12:33,285 - summarization - INFO - Starting summarization for PMID: Unknown
+2025-02-21 13:12:33,285 - summarization - INFO - Making Groq API call for PMID: Unknown
+2025-02-21 13:12:33,290 - root - INFO - Starting summarization for PMID 39422678
+2025-02-21 13:12:33,291 - summarization - INFO - Starting summarization for PMID: Unknown
+2025-02-21 13:12:33,291 - summarization - INFO - Making Groq API call for PMID: Unknown
+2025-02-21 13:12:33,296 - root - INFO - Starting summarization for PMID 39684714
+2025-02-21 13:12:33,296 - summarization - INFO - Starting summarization for PMID: Unknown
+2025-02-21 13:12:33,296 - summarization - INFO - Making Groq API call for PMID: Unknown
+2025-02-21 13:12:35,730 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-02-21 13:12:35,732 - summarization - INFO - Successfully summarized PMID: Unknown
+2025-02-21 13:12:35,732 - root - INFO - Successfully summarized PMID 39422678
+2025-02-21 13:12:35,755 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-02-21 13:12:35,758 - summarization - INFO - Successfully summarized PMID: Unknown
+2025-02-21 13:12:35,758 - root - INFO - Successfully summarized PMID 39387496
+2025-02-21 13:12:35,804 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-02-21 13:12:35,806 - summarization - INFO - Successfully summarized PMID: Unknown
+2025-02-21 13:12:35,806 - root - INFO - Successfully summarized PMID 39684714
+2025-02-21 13:12:58,190 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"

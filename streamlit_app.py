@@ -16,7 +16,7 @@ from logger_config import setup_logging
 
 # New: import the new modules for each pipeline phase
 from query_generation import generate_query
-from relevance_check import check_relevance
+from relevance_check import check_relevance, extract_pmid_from_text
 from summarization import summarize_article, fetch_full_text
 from synthesis import synthesize_summaries
 from citation_builder import build_references
@@ -32,7 +32,7 @@ EMAIL = os.getenv('EMAIL')
 
 # All configurations moved to streamlit_app.py
 SEARCH_PARAMS = {
-    'max_articles': 25,
+    'max_articles': 50,
     'min_articles': 1,
     'max_queries': 3,
     'max_retries': 2,
@@ -411,109 +411,186 @@ def get_date_range(years_back):
     start_date = end_date - timedelta(days=365 * years_back)
     return f"{start_date.strftime('%Y/%m/%d')}:{end_date.strftime('%Y/%m/%d')}[Date - Publication]"
 
+def create_progress_display():
+    """Create and return containers for progress updates"""
+    progress = {
+        'query': st.empty(),      # Create query container first
+        'search': st.empty(),     # Create search container second
+        'processing': st.empty(),
+        'synthesis': st.empty(),
+        'references': st.empty(),
+        'time': st.empty()
+    }
+    return progress
+
+def update_progress(progress, step, message, status="running"):
+    """Update progress display for a specific step"""
+    emoji_map = {
+        "running": "⏳",
+        "success": "✅",
+        "error": "❌",
+        "warning": "⚠️",
+        "excluded": "❌"
+    }
+    emoji = emoji_map.get(status, "")  # Default to no emoji instead of ℹ️
+    progress[step].info(f"{emoji} {message}")
+
+def extract_pmid_from_text(text):
+    """Extract PMID from article text or summary"""
+    match = re.search(r"PMID:(\d+)", text)
+    return match.group(1) if match else "Unknown"
+
 def main():
+    # Revert back to hospital emoji
     st.title("🏥 CC Medical Research Assistant")
-    st.write("Ask a medical research question and get answers based on PubMed articles.")
-
-    # Keep this
-    logger.info("=== Starting new research session ===")
-
-    # User input
-    question = st.text_area("Enter your medical research question:", height=100)
     
-    if st.button("Search and Analyze", type="primary"):
-        if not question.strip():
-            st.warning("Please enter a question.")
-            return
+    # Add sidebar for configuration
+    with st.sidebar:
+        st.header("Search Parameters")
         
-        start_time = time.time()
-
+        # Number of articles slider - max 100, step by 5
+        max_articles = st.slider(
+            "Number of articles to retrieve",
+            min_value=5,
+            max_value=100,
+            value=SEARCH_PARAMS['max_articles'],
+            step=5,
+            help="Maximum number of articles to retrieve from PubMed"
+        )
+        
+        # Date range slider - back to 1966
+        current_year = datetime.now().year
+        years_back = current_year - 1966
+        
+        date_range = st.slider(
+            "Publication date cutoff (years)",
+            min_value=1,
+            max_value=years_back,
+            value=SEARCH_PARAMS['date_range_years'],
+            help="Only include articles published within this many years"
+        )
+        
+        # Show the actual year range
+        start_year = current_year - date_range
+        st.caption(f"Will search from {start_year} to {current_year}")
+    
+    # Update the search parameters with user values
+    SEARCH_PARAMS.update({
+        'max_articles': max_articles,
+        'date_range_years': date_range
+    })
+    
+    # Rest of the main function...
+    question = st.text_area("Enter your clinical question:", height=100)
+    
+    if st.button("Search") and question:
         try:
-            with st.spinner("🔍 Searching PubMed..."):
-                logger.info("Starting PubMed search")
-                generated_query = generate_query(question, LLM_CONFIGS["query_generation"])
-                logger.info(f"Using query: {generated_query}")
-                
-                # Add date range to query
-                date_range = get_date_range(SEARCH_PARAMS['date_range_years'])
-                full_query = f"({generated_query}) AND {date_range}"
-                logger.info(f"Full query with date range: {full_query}")
-                
-                search_results = search_pubmed(full_query, SEARCH_PARAMS['max_articles'])
-                article_count = len(search_results) if search_results else 0
-                logger.info(f"Retrieved {article_count} articles from PubMed")
-                
-                if not search_results:
-                    st.error("No articles found. Please try refining your question.")
-                    return
+            progress = create_progress_display()
+            start_time = time.time()
             
-            st.info(f"Found {len(search_results)} relevant articles")
-
-            article_summaries = []
-            irrelevant_articles = []
-            # Process each retrieved article
-            with st.spinner("📚 Processing articles..."):
-                article_summaries, irrelevant_articles = process_articles(
-                    search_results, question, LLM_CONFIGS
-                )
-                relevant_count = len(article_summaries)
-                irrelevant_count = len(irrelevant_articles)
-                st.info(
-                    f"Article Processing Results:\n"
-                    f"✅ {relevant_count} relevant articles summarized\n"
-                    f"❌ {irrelevant_count} articles excluded"
-                )
-
-            if not article_summaries:
-                st.warning("No relevant articles were found or all article processing failed.")
-                if irrelevant_articles:
-                    st.write("Irrelevant or failed articles:")
-                    for art in irrelevant_articles:
-                        st.write(f"- {art}")
+            # Query Generation Step
+            update_progress(progress, 'query', "Generating PubMed query...", "running")
+            generated_query = generate_query(question, LLM_CONFIGS["query_generation"])
+            date_range = get_date_range(SEARCH_PARAMS['date_range_years'])
+            full_query = f"({generated_query}) AND {date_range}"
+            update_progress(progress, 'query', f"⚙️ Generated query:\n\n```\n{full_query}\n```", "")
+            
+            # PubMed Search Step
+            update_progress(progress, 'search', "Searching PubMed...", "running")
+            search_results = search_pubmed(full_query, SEARCH_PARAMS['max_articles'])
+            article_count = len(search_results) if search_results else 0
+            
+            if not search_results:
+                update_progress(progress, 'search', "❌ No articles found", "error")
                 return
-
-            with st.spinner("✍️ Synthesizing findings..."):
-                synthesis = synthesize_summaries(question, article_summaries, LLM_CONFIGS["synthesis"])
-                st.info(
-                    f"Synthesis complete!\n"
-                    f"📊 Synthesized findings from {relevant_count} articles\n"
-                    f"📝 See the 'Synthesis' tab below for results"
-                )
+            update_progress(progress, 'search', f"🔍 Found {article_count} articles", "")
             
-            # Build references from the synthesis text based on cited PMIDs
+            # Article Processing Step
+            update_progress(progress, 'processing', "Processing articles...", "running")
+            article_summaries, irrelevant_articles = process_articles(
+                search_results, question, LLM_CONFIGS
+            )
+            relevant_count = len(article_summaries)
+            irrelevant_count = len(irrelevant_articles)
+            
+            if not article_summaries:
+                update_progress(progress, 'processing', "⚠️ No relevant articles found", "warning")
+                return
+            
+            # Keep existing emojis for relevant/irrelevant counts
+            processing_message = []
+            if relevant_count > 0:
+                processing_message.append(f"✅ {relevant_count} relevant articles found")
+            if irrelevant_count > 0:
+                processing_message.append(f"❌ {irrelevant_count} articles excluded")
+            update_progress(progress, 'processing', "\n".join(processing_message), "")
+            
+            # Synthesis Step
+            update_progress(progress, 'synthesis', "Synthesizing findings...", "running")
+            synthesis = synthesize_summaries(question, article_summaries, LLM_CONFIGS["synthesis"])
+            update_progress(progress, 'synthesis', "✍️ Synthesis complete", "")
+            
+            # References Step
+            update_progress(progress, 'references', "Building references...", "running")
             references = build_references(synthesis, articles=search_results)
+            update_progress(progress, 'references', "📝 References compiled", "")
             
+            # Time tracking
             end_time = time.time()
-            st.info(f"⏱️ Total Processing Time: {end_time - start_time:.2f} seconds")
-
+            processing_time = end_time - start_time
+            update_progress(progress, 'time', f"⏱️ Total processing time: {processing_time:.1f} seconds", "")
+            
             # Display results in tabs
             tab1, tab2, tab3 = st.tabs(["Synthesis", "Article Summaries", "Search Details"])
             
             with tab1:
-                st.markdown("### Synthesis")
                 display_synthesis_and_references(synthesis, search_results)
             
             with tab2:
                 st.markdown("### Article Summaries")
                 for i, summary in enumerate(article_summaries, 1):
-                    with st.expander(f"Article Summary {i}"):
-                        st.markdown(summary)
+                    # Extract PMID from summary
+                    pmid = extract_pmid_from_text(summary)
+                    
+                    # Get article title from search_results
+                    article = next(
+                        (art for art in search_results 
+                         if str(art.get('MedlineCitation', {}).get('PMID', '')) == pmid),
+                        None
+                    )
+                    
+                    if article:
+                        title = article.get('MedlineCitation', {}).get('Article', {}).get('ArticleTitle', 'No title')
+                        pubmed_link = f"https://pubmed.ncbi.nlm.nih.gov/{pmid}/"
+                        
+                        # Create expander with footnote number and title
+                        with st.expander(f"[{i}] {title}"):
+                            # Add PubMed link at the top of the summary
+                            st.markdown(f"[View on PubMed]({pubmed_link})")
+                            st.markdown("---")  # Add a separator
+                            st.markdown(summary)
             
             with tab3:
                 st.markdown("### Search Details")
-                st.markdown("**Base Query:**")
-                st.markdown(f"```\n{generated_query}\n```")
-                st.markdown("**Full PubMed Query (including date range):**")
-                st.markdown(f"```\n{full_query}\n```")
+                st.markdown("**PubMed Query:**")
+                st.code(full_query, language="text")
                 if irrelevant_articles:
-                    st.markdown("**Ignored Articles:**")
-                    for art in irrelevant_articles:
-                        st.markdown(f"- {art}")
-                else:
-                    st.markdown("No irrelevant articles detected.")
+                    st.markdown("**Excluded Articles:**")
+                    for article_info in irrelevant_articles:
+                        pmid = extract_pmid_from_text(article_info)
+                        # Get article title from search_results
+                        title = next(
+                            (article.get('MedlineCitation', {}).get('Article', {}).get('ArticleTitle', 'No title')
+                            for article in search_results
+                            if article.get('MedlineCitation', {}).get('PMID', '') == pmid),
+                            'No title'
+                        )
+                        pubmed_link = f"https://pubmed.ncbi.nlm.nih.gov/{pmid}/"
+                        st.markdown(f"❌ [{title}]({pubmed_link})")
 
         except Exception as e:
-            st.error(f"An error occurred: {str(e)}")
+            error_step = next((step for step in progress if not progress[step].empty()), 'processing')
+            update_progress(progress, error_step, f"Error: {str(e)}", "error")
             logger.error("Error in main process", exc_info=True)
 
     # First, add custom CSS for the link color and gray text
